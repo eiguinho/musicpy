@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Musicas</title>
+    <style>
+        table, td, th{
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Musicas Cadastradas - {{titulo}}</h2>
+    <table>
+        <tr>
+            <th>Musica</th>
+            <th>Cantor / Grupo / Banda</th>
+            <th>Genero</th>
+        </tr>
+        {% for music in musicas %}
+        <tr>
+            <td>{{ music.nome }}</td>
+            <td>{{ music.cantorBandaGrupo }}</td>
+            <td>{{ music.genero }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
