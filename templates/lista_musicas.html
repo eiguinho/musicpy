@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Musicas</title>
-    <link rel="stylesheet" href="../static/bootstrap.css">
-</head>
-<body>
-    <div class="container">
-        <h2>Musicas Cadastradas - {{titulo}}</h2>
-        <table class="table table-hover">
+{% extends "padrao.html" %}
+{% block conteudo %}
+            <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>Musica</th>
@@ -28,5 +20,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+{% endblock %}

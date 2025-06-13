@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Musica</title>
-    <link rel="stylesheet" href="../static/bootstrap.css">
-</head>
-<body>
+{% extends "padrao.html" %}
+{% block conteudo %}
     <form method="post" action="/adicionar">
         <fieldset>
-            <legend>Digite as informações da Música</legend>
-
             <div class="mb-3">
                 <label for="txtNome">Nome da Música:</label>
                 <input type="text" name="txtNome" id="txtNome" placeholder="Nome" class="form-control">
@@ -31,6 +23,4 @@
 
         </fieldset>
     </form>
-    
-</body>
-</html>
+{% endblock %}
