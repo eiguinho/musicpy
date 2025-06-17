@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session, flash, url_for
 
 class Musica:
     def __init__(self, nome, cantorBandaGrupo, genero):
@@ -35,7 +35,7 @@ def adicionar_musica():
     novaMusica = Musica(nome, cantor, genero)
     lista.append(novaMusica)
 
-    return redirect("/")
+    return redirect(url_for('listarMusicas'))
 
 @app.route('/login')
 def login():
@@ -46,14 +46,14 @@ def autenticar():
     if request.form['txtSenha'] == 'admin':
         session['usuario_logado'] = request.form['txtLogin']
         flash("Usuario logado com sucesso!")
-        return redirect('/')
+        return redirect(url_for('listarMusicas'))
     else:
         flash("Acesso Negado! Credenciais invalidas!")
-        return redirect('/login')
+        return redirect(url_for('login'))
 
 @app.route('/sair')
 def sair():
     session['usuario_logado'] = None
-    return redirect('/login')
+    return redirect(url_for('login'))
     
 app.run(debug=True)
