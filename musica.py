@@ -17,12 +17,16 @@ app.secret_key = 'igorvjgssecret'
 
 @app.route('/')
 def listarMusicas():
+    if session['usuario_logado'] == None or 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     return render_template('lista_musicas.html',
                            titulo = 'Musicas Cadastradas',
                            musicas = lista)
 
 @app.route('/cadastrar')
 def cadastrarMusica():
+    if session['usuario_logado'] == None or 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     return render_template('cadastra_musica.html',
                            titulo = "Cadastrar Música")
 
@@ -31,10 +35,8 @@ def adicionar_musica():
     nome = request.form['txtNome']
     cantor = request.form['txtCantor']
     genero = request.form['txtGenero']
-
     novaMusica = Musica(nome, cantor, genero)
     lista.append(novaMusica)
-
     return redirect(url_for('listarMusicas'))
 
 @app.route('/login')
