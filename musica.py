@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 class Musica:
     def __init__(self, nome, cantorBandaGrupo, genero):
@@ -27,6 +28,17 @@ usuarios = {
 app = Flask(__name__)
 
 app.secret_key = 'igorvjgssecret'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = 'admin',
+        servidor = 'localhost',
+        database = 'playmusica'
+    )
+
+db = SQLAlchemy(app)
 
 @app.route('/') #Rota principal
 def listarMusicas():
