@@ -32,10 +32,39 @@ def adicionar_musica():
         db.session.add(nova_musica)
         db.session.commit()
         return redirect(url_for('listarMusicas'))
+    
+@app.route('/editar/<int:id>') #Rota de login
+def editar(id):
+    if session['usuario_logado'] == None or 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    musicaBuscada = Musica.query.filter_by(id_musica=id).first()
+    return render_template('editar_musica.html',
+                           titulo = 'Editar Música',
+                           musica = musicaBuscada)
+
+@app.route('/atualizar', methods=['POST', ]) #Rota de login
+def atualizar():
+    musica = Musica.query.get(request.form['txtId'])
+    musica.nome_musica = request.form['txtNome']
+    musica.cantor_banda = request.form['txtCantor']
+    musica.genero_musica = request.form['txtGenero']
+    db.session.add(musica)
+    db.session.commit()
+    return redirect(url_for('listarMusicas'))
+
+@app.route('/excluir/<int:id>') #Rota de login
+def excluir(id):
+    if session['usuario_logado'] == None or 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    Musica.query.filter_by(id_musica=id).delete()
+    db.session.commit()
+    flash("Música excluída com sucesso")
+    return redirect(url_for('listarMusicas'))
 
 @app.route('/login') #Rota de login
 def login():
     return render_template('login.html')
+
 
 @app.route('/autenticar', methods=['POST', ]) # Autenticacao
 def autenticar():
