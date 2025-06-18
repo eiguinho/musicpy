@@ -1,29 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-class Musica:
-    def __init__(self, nome, cantorBandaGrupo, genero):
-        self.nome = nome
-        self.cantorBandaGrupo = cantorBandaGrupo
-        self.genero = genero
-musica01 = Musica('Musica', 'Docara', 'top')
-musica02 = Musica('Musica', 'Docara', 'top')
-musica03 = Musica('Musica', 'Docara', 'top')
-lista = [musica01, musica02, musica03]
-
-class Usuario:
-    def __init__(self, nome, login, senha):
-        self.nome = nome
-        self.login = login
-        self.senha = senha
-
-usuario01 = Usuario("Igor Silva", "igorv.gama", "123")
-usuario02 = Usuario("Geraldo Augusto", "gerardo.aug", "admin")
-
-usuarios = {
-    usuario01.login : usuario01,
-    usuario02.login : usuario02
-}
 
 app = Flask(__name__)
 
@@ -39,6 +16,22 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     )
 
 db = SQLAlchemy(app)
+
+class Musica(db.Model):
+    id_musica = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    nome_musica = db.Column(db.String(50), nullable = False)
+    cantor_banda = db.Column(db.String(50), nullable = False)
+    genero_musica = db.Column(db.String(50), nullable = False)
+    def __repr__(self):
+        return '<Name %r>' %self.name
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    nome_usuario = db.Column(db.String(50), nullable = False)
+    login_usuario = db.Column(db.String(20), nullable = False)
+    senha_usuario = db.Column(db.String(15), nullable = False)
+    def __repr__(self):
+        return '<Name %r>' %self.name
 
 @app.route('/') #Rota principal
 def listarMusicas():
