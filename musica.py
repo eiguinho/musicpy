@@ -26,7 +26,7 @@ class Musica(db.Model):
         return '<Name %r>' %self.name
 
 class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    id_usuario = db.Column(db.Integer, primary_key = True, autoincrement = True)
     nome_usuario = db.Column(db.String(50), nullable = False)
     login_usuario = db.Column(db.String(20), nullable = False)
     senha_usuario = db.Column(db.String(15), nullable = False)
@@ -37,6 +37,7 @@ class Usuario(db.Model):
 def listarMusicas():
     if session['usuario_logado'] == None or 'usuario_logado' not in session:
         return redirect(url_for('login'))
+    lista = Musica.query.order_by(Musica.id_musica)
     return render_template('lista_musicas.html',
                            titulo = 'Musicas Cadastradas',
                            musicas = lista)
@@ -53,9 +54,15 @@ def adicionar_musica():
     nome = request.form['txtNome']
     cantor = request.form['txtCantor']
     genero = request.form['txtGenero']
-    novaMusica = Musica(nome, cantor, genero)
-    lista.append(novaMusica)
-    return redirect(url_for('listarMusicas'))
+    musica = Musica.query.filter_by(nome_musica=nome).first()
+    if musica:
+        flash("Musica já está cadastrada!")
+        return redirect(url_for('listarMusicas'))
+    else:
+        nova_musica = Musica(nome_musica = nome, cantor_banda = cantor, genero_musica = genero)
+        db.session.add(nova_musica)
+        db.session.commit()
+        return redirect(url_for('listarMusicas'))
 
 @app.route('/login') #Rota de login
 def login():
@@ -63,11 +70,11 @@ def login():
 
 @app.route('/autenticar', methods=['POST', ]) # Autenticacao
 def autenticar():
-    if request.form['txtLogin'] in usuarios:
-        usuarioEncontrado = usuarios[request.form['txtLogin']]
-        if request.form['txtSenha'] == usuarioEncontrado.senha:
+    usuario = Usuario.query.filter_by(login_usuario = request.form['txtLogin']).first()
+    if usuario:
+        if request.form['txtSenha'] == usuario.senha_usuario:
             session['usuario_logado'] = request.form['txtLogin']
-            flash(f"Usuario {usuarioEncontrado.login} logado com sucesso! Seja bem vindo {usuarioEncontrado.nome}")
+            flash(f"Usuario {usuario.login_usuario} logado com sucesso! Seja bem vindo {usuario.nome_usuario}")
             return redirect(url_for('listarMusicas'))
         else:
             flash("Senha incorreta!")
