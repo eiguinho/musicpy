@@ -1,7 +1,15 @@
 {% extends "padrao.html" %}
 {% block conteudo %}
-    <form method="post" action="{{ url_for('atualizar')}}">
+    <form method="post" action="{{ url_for('atualizar')}}" enctype ="multipart/form-data">
         <fieldset>
+            <figure class="img-thmbnail mb-3">
+                <img class="img-fluid" src="{{url_for('imagem', nome_imagem=album_musica)}}">
+                <figcaption>
+                    <label for = "arquivo" class="form-label">Selecione uma nova imagem
+                        <input type = "file" name = "arquivo" id = "arquivo" accept=".jpg, .jpeg, .png" class="form-control">
+                    </label>
+                </figcaption>
+            </figure>
             <input type="hidden" name="txtId" value="{{musica.id_musica}}">
             <div class="mb-3">
                 <label for="txtNome">Nome da Música:</label>
