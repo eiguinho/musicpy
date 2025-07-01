@@ -10,24 +10,25 @@
                     </label>
                 </figcaption>
             </figure>
-            <input type="hidden" name="txtId" value="{{musica.id_musica}}">
+            {{ musica.csrf_token() }}
+            <input type="hidden" name="txtId" value="{{id}}">
             <div class="mb-3">
-                <label for="txtNome">Nome da Música:</label>
-                <input type="text" name="txtNome" id="txtNome" placeholder="Nome" class="form-control" value="{{musica.nome_musica}}">
+                {{ musica.nome.label(class="form-label") }}
+                {{ musica.nome(class="form-control")}}
             </div>
 
             <div class="mb-3">
-                <label for="txtCantor">Cantor</label>
-                <input type="text" name="txtCantor" id="txtCantor" placeholder="Cantor" class="form-control" value="{{musica.cantor_banda}}">
+                {{ musica.grupo.label(class="form-label") }}
+                {{ musica.grupo(class="form-control")}}
             </div>
 
             <div class="mb-3">
-                <label for="txtGenero">Genero</label>
-                <input type="text" name="txtGenero" id="txtGenero" placeholder="Genero" class="form-control" value="{{musica.genero_musica}}">
+                {{ musica.genero.label(class="form-label") }}
+                {{ musica.genero(class="form-control")}}
             </div>
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Salvar Musica</button>
+                {{musica.cadastrar(class="btn btn-primary")}}
             </div>
 
         </fieldset>
