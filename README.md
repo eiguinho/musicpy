@@ -22,7 +22,5 @@ Musicpy é um projeto web desenvolvido com **Python** e **Flask**, que permite c
 
 - **Python 3**
 - **Flask**
-- **Flask-Login** (gerenciamento de sessões)
-- **SQLite** (ou outro banco de dados, se configurado)
-- HTML/CSS (renderização das páginas)
-- Bootstrap (opcional, caso tenha utilizado)
+- **MySQL** (renderização das páginas)
+- **Bootstrap**
