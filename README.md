@@ -10,7 +10,7 @@ Musicpy é um projeto web desenvolvido com **Python** e **Flask**, que permite c
 - Login e logout
 - Cadastro de músicas com:
   - Título
-  - Imagem da capa (URL ou upload, conforme implementado)
+  - Imagem da capa
   - Nome do artista/banda
 - Listagem de músicas cadastradas
 - Edição de informações das músicas
